@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="assets/style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <h1>Welcome to Nodejs !!</h1>
+        <form method="post" action="person">
+            First Name <input type="text" id="firstname" name="firstname"><br>
+            Last Name <input type="text"  id="lastname" name="lastname"><br>
+            <input type="submit" name="submit" id="">
+        </form>
+        <script>
+            $.ajax({
+                type:"post",
+                url: "/personjson",
+                data: JSON.stringify({firstname:'Test', lasrname: 'Gupta'}),
+                dataType: 'json',
+                contentType: 'application/json' 
+            })
+        </script>
+    </body>
+</html>

@@ -20,16 +20,16 @@ eventEmitter.on('clicked', ()=>{
 })
 
 eventEmitter.emit('clicked');
-// http.createServer(function (req, res) {
-//    // console.log('hii');
-//     let body = 'thi';
-//     let content_length = body.length;
-//     res.writeHead(200 , {
-//             'Content-Type':'text/plain',
-//             'Content-Length': content_length
-//         })
-//     res.end('VAGISH');
-// }).listen(3000)
+http.createServer(function (req, res) {
+   // console.log('hii');
+    let body = 'thi';
+    let content_length = body.length;
+    res.writeHead(200 , {
+            'Content-Type':'text/plain',
+            'Content-Length': content_length
+        })
+    res.end('VAGISH');
+}).listen(3000)
 
 console.log('Server is running')
 

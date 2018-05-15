@@ -1,0 +1,66 @@
+1. Create A SSH KEY: ssh-keygen -t rsa -b 4096 -C "vagishgupta22@gmail.com"
+
+Output:
+
+drwxr-xr-x 1 vagupta 1049089    0 Apr 17 14:10 .
+drwxr-xr-x 1 vagupta 1049089    0 Apr 17 14:10 ..
+-rw-r--r-- 1 vagupta 1049089 3247 Apr 17 14:10 id_rsa
+-rw-r--r-- 1 vagupta 1049089  749 Apr 17 14:10 id_rsa.pub
+
+
+
+2. check for ssh key: 1(Window) dir -al ~/.ssh 
+	           2(Mac)    ls -al ~/.ssh 
+
+3. Add SSH Agent and ass these Keys  to Know that these Keys exists
+
+eval "(ssh-agent -s)" or  eval `ssh-agent -s`
+
+Output(This will print the processID )
+echo Agent pid 16976;
+
+4. Let the ssh Agent where these files lives
+
+ssh-add -k ~/.ssh/id_rsa
+
+Output: Identity added: /c/Users/vagupta/.ssh/id_rsa (/c/Users/vagupta/.ssh/id_rsa)
+
+this means my local machine knows public and private keys and it is ready to commuinite with GIT HUB or HERUKU
+
+
+5. Test check connection:  ssh -T git@github.com
+
+
+---------------------------
+
+
+Heroku 
+
+1. Create an Account on Heroku
+
+2. download heroku command line tool
+
+3. Open CMD as an adminstrator
+
+4. Run heroku --help
+
+5. heroku login
+ enter cretendials of heroku
+
+6. Add key to heroku run:   heroku keys:add
+7. To check connection ssh -v git@heroku.com
+
+
+
+
+  
+ 
+
+
+	
+	
+ 
+
+
+
+

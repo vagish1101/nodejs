@@ -1,49 +1,53 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
 var app = express();
+mongoose.connect('mongodb://test:test@ds147872.mlab.com:47872/testaddress');
+
+var Schema = mongoose.Schema;
+
+var personSchema = new Schema({
+    firstName: String,
+    lastName: String,
+    address: String,
+    ID: Number
+})
+
+var Person = mongoose.model('Person', personSchema);
+
+var vagish = Person({
+    firstName: 'Vagish',
+    lastName: 'Gupta',
+    address: 'xyz',
+    id: 2290
+})
+
+// Save the user
+vagish.save(function(error){
+    if(error) throw error
+    console.log('User saved')
+})
+ 
+var apiController = require('./controllers/apiController');
+var htmlController = require('./controllers/htmlController');
 
 var port = process.env.PORT || 3000;
 
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
-var jsonParser = bodyParser.json();
-
 app.use(cookieParser());
+app.set('view engine', 'ejs')
 app.use('/assets', express.static(__dirname + '/public'));
-app.use('/', (res, req, next)=> {
-    console.log(res.url );
+app.use('/', (req, res, next)=> {
+    console.log(req.url)
+    Person.find({}, (error , users)=>{
+        if(error) throw error
+        //console.log(users);
+    })
+
     next();
 })
 
-app.set('view engine', 'ejs')
-app.get('/', function(req, res) {
-    console.log(req.cookies);
-    res.render('index')
-	// res.send('<html><head><link href=assets/style.css rel=stylesheet /> </head><body><h1>Hello world!</h1></body></html>');
-});
+apiController(app)
+htmlController(app)
 
-app.post('/person', urlencodedParser, (req, res)=> {
-    res.send('Thank u');
-    console.log(req.body.firstname);
-})
-
-app.post('/personjson', jsonParser, (req, res)=> {
-    res.send('Thank u for the json data');
-    console.log(req.body.firstname);
-    console.log(req.body.lastname);
-})
-
-app.get('/person/:id', (req, res)=> {
-    console.log(req.url);
-    console.log(req.params);
-    //console.log('request url' + res.url );
-    res.render('person', {
-        ID: req.params.id,
-        Qstr: req.query.qstr
-    });
-})
-
-app.get('/api', function(req, res) {
-	res.json({ firstname: 'John', lastname: 'Doe' });
-});
 app.listen(port)
